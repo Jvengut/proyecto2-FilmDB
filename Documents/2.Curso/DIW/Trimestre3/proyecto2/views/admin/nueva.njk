@@ -1,0 +1,48 @@
+{% extends "../base.njk" %}
+
+{% block titulo %}FilmDB - Nueva película{% endblock %}
+
+
+{% block contenido %}
+<h1>Nueva película</h1>
+
+{% if error %}
+    <div class="alert alert-danger"{{error}}</div>
+{% endif %}
+
+<form action="/admin" method="post">
+    <div class="mb-3">
+        <label class="form-label">Título</label>
+        <input type="text" class="form-control" name="titulo" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Director</label>
+        <input type="text" class="form-control" name="director" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Año</label>
+        <input type="number" class="form-control" name="anio" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Género</label>
+        <select class="form-select" name="genero" required>
+            <option value="">Selecciona un género</option>
+            <option value="Acción">Acción</option>
+            <option value="Comedia">Comedia</option>
+            <option value="Drama">Drama</option>
+            <option value="Terror">Terror</option>
+            <option value="Ciencia ficción">Ciencia ficción</option>
+            <option value="Animación">Animación</option>
+            <option value="Fantasía">Fantasía</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Sinopsis</label>
+        <textarea class="form-control" name="sinopsis" rows="3" required></textarea>
+    </div>
+    <a href="/admin" class="btn btn-secondary">Cancelar</a>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+
+{% endblock %}
+    

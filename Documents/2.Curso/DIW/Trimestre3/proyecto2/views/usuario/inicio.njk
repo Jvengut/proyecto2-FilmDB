@@ -1,0 +1,65 @@
+{% extends "base.njk" %}
+
+{% block titulo %}FilmDB - Inicio{% endblock %}
+
+{% block contenido %}
+<div class="text-center py-4 mb-4 bg-dark text-white rounded">
+    <h1>🎬 Bienvenido a FilmDB</h1>
+    <p class="lead">Busca y descubre películas de tu catálogo.</p>
+</div>
+
+<h1 class="mb-4">Buscar películas</h1>
+
+<form method="get" action="/" class="mb-4">
+    <div class="row g-3">
+        <div class="col-md-4">
+            <input type="text" class="form-control" name="busqueda" 
+                placeholder="Buscar por título..." value="{{ busqueda }}">
+        </div>
+        <div class="col-md-3">
+            <select class="form-select" name="genero">
+                <option value="">Todos los géneros</option>
+                <option value="Acción" {% if genero == "Acción" %}selected{% endif %}>Acción</option>
+                <option value="Comedia" {% if genero == "Comedia" %}selected{% endif %}>Comedia</option>
+                <option value="Drama" {% if genero == "Drama" %}selected{% endif %}>Drama</option>
+                <option value="Terror" {% if genero == "Terror" %}selected{% endif %}>Terror</option>
+                <option value="Ciencia ficción" {% if genero == "Ciencia ficción" %}selected{% endif %}>Ciencia ficción</option>
+                <option value="Animación" {% if genero == "Animación" %}selected{% endif %}>Animación</option>
+                <option value="Fantasía" {% if genero == "Ciencia ficción" %}selected{% endif %}>Fantasía</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select class="form-select" name="ordenar">
+                <option value="titulo" {% if ordenar == "titulo" %}selected{% endif %}>Ordenar por título</option>
+                <option value="anio" {% if ordenar == "anio" %}selected{% endif %}>Ordenar por año</option>
+                <option value="-anio" {% if ordenar == "-anio" %}selected{% endif %}>Año (más reciente)</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">Buscar</button>
+        </div>
+    </div>
+</form>
+
+{% if peliculas.length == 0 %}
+    <div class="alert alert-info">No se encontraron películas.</div>
+{% else %}
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for pelicula in peliculas %}
+        <div class="col">
+            <div class="card h-100">
+                <img src="{{ pelicula.imagen }}" class="card-img-top" alt="{{ pelicula.titulo }}" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ pelicula.titulo }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ pelicula.director }}</h6>
+                    <p class="card-text">{{ pelicula.sinopsis }}</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">{{ pelicula.genero }} · {{ pelicula.anio }}</small>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% endblock %}

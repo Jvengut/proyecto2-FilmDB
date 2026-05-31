@@ -1,0 +1,41 @@
+{% extends "../base.njk" %}
+
+{% block contenido %}
+<div class="d-flex justify-content-between aling-items-center mb-4">
+    <h1>Administración de películas</h1>
+    <a href="/admin/nueva" class="btn btn-success">+ Nueva película</a>
+</div>
+
+{% if peliculas.length == 0 %}
+    <div class="alert alert-info">No hay películas en el catálogo.</div>
+{% else %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Director</th>
+                <th>Año</th>
+                <th>Género</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pelicula in peliculas %}
+            <tr>
+                <td>{{ pelicula.titulo }}</td>
+                <td>{{ pelicula.director }}</td>
+                <td>{{ pelicula.anio }}</td>
+                <td>{{ pelicula.genero }}</td>
+                <td>
+                    <a href="/admin/editar/{{ pelicula._id }}" class="btn btn-warning btn-sm">Editar</a>
+                    <form action="/admin/borrar/{{ pelicula._id }}" method="post" style="display:inline">
+                        <button type="submit" class="btn btn-danger btn-sm">Borrar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% endblock %}
+"

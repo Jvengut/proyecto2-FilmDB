@@ -1,0 +1,51 @@
+{% extends "../base.njk" %}
+
+{% block titulo %}FilmDB - Editar película{% endblock %}
+
+
+{% block contenido %}
+<h1>Editar película</h1>
+
+{% if error %}
+    <div class="alert alert-danger"{{error}}</div>
+{% endif %}
+
+<form action="/admin/editar/{{ pelicula._id }}" method="post">
+    <div class="mb-3">
+        <label class="form-label">Título</label>
+        <input type="text" class="form-control" name="titulo" values="{{ pelicula.titulo }}" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Director</label>
+        <input type="text" class="form-control" name="director" values="{{ pelicula.director }}" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Año</label>
+        <input type="number" class="form-control" name="anio" values="{{ pelicula.anio }}" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Género</label>
+        <select class="form-select" name="genero" required>
+            <option value="">Selecciona un género</option>
+            <option value="Acción" {% if pelicula.genero == "Acción" %}selected{% endif %}>Acción</option>
+            <option value="Comedia" {% if pelicula.genero == "Comedia" %}selected{% endif %}>Comedia</option>
+            <option value="Drama" {% if pelicula.genero == "Drama" %}selected{% endif %}>Drama</option>
+            <option value="Terror" {% if pelicula.genero == "Terror" %}selected{% endif %}>Terror</option>
+            <option value="Ciencia ficción" {% if pelicula.genero == "Ciencia ficción" %}selected{% endif %}>Ciencia ficción</option>
+            <option value="Animación" {% if pelicula.genero == "Animación" %}selected{% endif %}>Animación</option>
+            <option value="Fantasía" {% if pelicula.genero == "Fantasía" %}selected{% endif %}>Fantasía</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Sinopsis</label>
+        <textarea class="form-control" name="sinopsis" rows="3" required>{{ pelicula.sinopsis }}</textarea>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">URL de imagen</label>
+        <input type="text" class="form-control" name="imagen" placeholder="https://...">
+    </div>
+    <a href="/admin" class="btn btn-secondary">Cancelar</a>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+
+{% endblock %}
